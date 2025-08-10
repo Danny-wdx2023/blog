@@ -9,6 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.8"
+    "astro": "^5.12.8",
+    "github-markdown-css": "^5.8.1",
+    "markdown-it": "^14.1.0",
+    "marked": "^16.1.2"
+  },
+  "devDependencies": {
+    "@shikijs/markdown-it": "^3.9.2",
+    "@types/markdown-it": "^14.1.2"
   }
 }

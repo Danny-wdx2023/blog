@@ -1,11 +1,38 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import fetchApi from "../lib/strapi";
+import type Article from "../interfaces/article";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const articles = await fetchApi<Article[]>({
+  endpoint: "articles", // 需要获取的内容类型
+  wrappedByKey: "data", // 在响应中被拆封的键
+});
 ---
 
 <Layout>
-	<Welcome />
+  <main>
+    <ul>
+      {
+        articles.map((article) => (
+          <li>
+            <a href={`/blog/${article.slug}/`}>
+              {article.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
 </Layout>
+<style>
+  main::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('../assets/background.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    filter: blur(100px);
+    z-index: -1;
+  }
+</style>
